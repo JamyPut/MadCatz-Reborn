@@ -1,11 +1,11 @@
-# Mad Catz STRIKE 3 Extra Key Actions
+# Mad Catz STRIKE 3 programmable keys for windows 11
 
-Launches programs or websites when you press the extra keys on a Mad Catz STRIKE 3, without the official software.
+Launches programs, websites or commands when you press the extra keys on a Mad Catz STRIKE 3, without the official software.
 
 ## How the codes were found
 
 1. `list_hid.py` listed the keyboard's HID interfaces. The extra keys use usage page `0009` (Button).
-2. `read_hid.py` printed the raw bytes for each press, in each mode (red, blue, green).
+2. `read_hid.py` printed the raw bytes for each press, in each mode (mode 1, mode 2, mode 3).
 3. The bits were decoded:
    - Byte 1: `M1`–`M7` are bits 0–6, `C1` is bit 7.
    - Byte 2: high nibble is the mode (`10` red, `20` blue, `40` green), low nibble holds `C2`–`C5`.
@@ -29,14 +29,10 @@ Edit `ACTIONS` in `button_actions.py`, one entry per button per mode:
 ## Running
 
 ```
-cd %USERPROFILE%\Desktop
 python button_actions.py
 ```
 
-- `cd` changes to your Desktop folder.
-- `python` runs the script.
-
-Requires Python 3 and `pip install hid`. Stop with Ctrl+C.
+Requires Python 3 and `pip install hidapi`. Stop with Ctrl+C.
 
 ## Disclaimer
 
