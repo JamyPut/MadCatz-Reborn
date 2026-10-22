@@ -48,8 +48,12 @@ def decode(data):
 
 
 def launch(target):
+    # Wrap the target in quotes unless it already starts with one.
+    # Entries with arguments, like "brave.exe" --incognito ..., are already quoted.
+    if not target.startswith('"'):
+        target = f'"{target}"'
     # "start" opens shortcuts, programs with arguments, and web addresses.
-    # The empty "" is a window title that start requires when the target is quoted.
+    # The "" after start is the window title it requires when the target is quoted.
     subprocess.Popen(f'start "" {target}', shell=True)
 
 
