@@ -1,4 +1,4 @@
-import os
+import subprocess
 import hid
 
 VID = 0x0738
@@ -8,13 +8,14 @@ USAGE_PAGE = 0x0009  # Button page
 MODE_NAMES = {0x10: "red", 0x20: "blue", 0x40: "green"}
 
 # Fill in what each button should do in each mode.
-# Put a path to a program (e.g. r"C:\Program Files\...\app.exe")
-# or a web address (e.g. "https://www.youtube.com").
+# Write paths with an r in front of the quotes, e.g. r"C:\Program Files\..."
+# You can add arguments after the program path, e.g.
+#   r"C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe" --incognito "https://example.com"
 # Leave a button empty ("") to do nothing.
 ACTIONS = {
     "red": {
-        "C1": "",
-        "C2": "",
+        "C1": r"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\PuTTY (64-bit)\PuTTY.lnk",
+        "C2": r'"C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe" --incognito "https://example.com"',
         "C3": "",
         "C4": "",
         "C5": "",
@@ -46,6 +47,12 @@ def decode(data):
     return mode, pressed
 
 
+def launch(target):
+    # "start" opens shortcuts, programs with arguments, and web addresses.
+    # The empty "" is a window title that start requires when the target is quoted.
+    subprocess.Popen(f'start "" {target}', shell=True)
+
+
 def main():
     info = None
     for d in hid.enumerate(VID, PID):
@@ -71,7 +78,7 @@ def main():
                 target = ACTIONS.get(mode, {}).get(button, "")
                 if target:
                     print(mode, button, "->", target)
-                    os.startfile(target)
+                    launch(target)
             prev = pressed
     except KeyboardInterrupt:
         pass
