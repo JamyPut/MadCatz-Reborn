@@ -36,4 +36,4 @@ Requires Python 3 and `pip install hidapi`. Stop with Ctrl+C.
 
 ## Disclaimer
 
-Written with the help of an AI assistant (Claude) and tested only on a STRIKE 3 (VID `0738`, PID `1112`) on Windows 11. Not affiliated with Mad Catz. Provided as-is, without warranty. Use at your own risk.
+Written with the help of AI (Claude) and tested only on a STRIKE 3 (VID `0738`, PID `1112`) on Windows 11. Not affiliated with Mad Catz. Provided as-is, without warranty. Use at your own risk.
