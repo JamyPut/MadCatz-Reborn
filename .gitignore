@@ -1,2 +1,9 @@
 *.txt
 *.xlsx
+actions.json
+__pycache__/
+gui_settings.json
+build/
+dist/
+*.spec
+!requirements.txt
